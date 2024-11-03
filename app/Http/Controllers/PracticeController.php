@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Practice;
-use App\Movie;
+use App\Models\Practice;
+use App\Models\Movie;
 
 class PracticeController extends Controller
 {
@@ -28,5 +28,10 @@ class PracticeController extends Controller
     public function index() {
       $movies = Movie::all();
       return view('index', ['movies' => $movies]);
+    }
+
+    public function admin() {
+      $movies = Movie::all();
+      return view('adminMovies', ['movies' => $movies]);
     }
 }
