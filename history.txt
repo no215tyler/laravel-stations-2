@@ -1,0 +1,23 @@
+ 1303  cp .env.example .env
+ 1304  docker compose build --no-cache
+ 1306  docker container ps
+ 1307  docker compose exec php-container composer install
+ 1311  docker compose exec php-container php artisan key:generate
+ 1314  docker compose down
+ 1315  docker compose up -d
+ 1319  git commit -m "Station01: LaravelでRouteを使ってページを追加"
+ 1321  git diff
+ 1323  git commit -m "Station02: RouteとControllerをどちらも使ってみよう"
+ 1326  git commit -m "Station03: 引数とBladeを使ってページを作ってみよう"
+ 1328  docker compose exec php-container php artisan make:migration CreatePracticesTable
+ 1329  git status
+ 1330  docker compose exec php-container php artisan migrate
+ 1331  docker compose exec php-container php artisan make:model Practice
+ 1333  git commit -m "Station04: データベースのテーブルを作成してみよう"
+ 1335  docker compose exec php-container php artisan make:factory Practice
+ 1336  docker compose exec php-container php artisan db:seed
+ 1337  git add .
+ 1338  git commit -m
+ 1339  git commit -m "Station05: データベースを使ってページを表示させてみよう"
+ 1340  docker exec -it laravel-stations-2-mysql mysql -u dev -p
+
