@@ -8,6 +8,7 @@
 </head>
 <body>
   <h1>映画リスト管理画面</h1>
+  <a href={{route('admin.movies.create')}}>新規投稿</a>
   <table border="1">
     <thread>
       <tr><th>ID</th><th>映画タイトル</th><th>画像URL</th><th>公開年</th><th>上映中かどうか</th><th>概要</th><th>登録日時</th><th>更新日時</th></tr>
@@ -31,5 +32,6 @@
       @endforeach
     </tbody>
   </table>
+  <a href="/movies">一覧ページへ戻る</a>
 </body>
 </html>

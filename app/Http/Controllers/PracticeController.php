@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use App\Models\Practice;
 use App\Models\Movie;
 
@@ -33,5 +34,34 @@ class PracticeController extends Controller
     public function admin() {
       $movies = Movie::all();
       return view('adminMovies', ['movies' => $movies]);
+    }
+
+    public function createMovie() {
+      return view('createMovie');
+    }
+
+    public function storeMovie(Request $request) {
+      // バリデーションルールの定義
+      $validated = $request->validate([
+        'title' => 'required|unique:movies,title',
+        'image_url' => 'required|url',
+        'published_year' => 'required|integer',
+        'is_showing' => 'required|nullable',
+        'description' => 'required',
+      ]);
+
+      try {
+        // 新しい映画レコードを作成
+        Movie::create([
+          'title' => $validated['title'],
+          'image_url' => $validated['image_url'],
+          'published_year' => $validated['published_year'],
+          'is_showing' => $request->has('is_showing') ? 1 : 0, # チェックボックスのon/off
+          'description' => $validated['description'],
+        ]);
+        return redirect()->route('admin.movies')->with('success', '映画が正常に登録されました。');
+      } catch (\Exception $e) {
+        return back()->withInput()->with('error', '登録中にエラーが発生しました。再度お試しください。');
+      }
     }
 }
