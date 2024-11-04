@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
-            $table->text('title')->comment('映画タイトル');
+            $table->string('title', 255)->unique()->comment('映画タイトル');
             $table->text('image_url')->comment('画像URL');
             $table->integer('published_year')->comment('公開年');
             $table->boolean('is_showing')->default(0)->comment('上映中かどうか');

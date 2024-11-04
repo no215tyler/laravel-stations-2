@@ -64,4 +64,22 @@ class PracticeController extends Controller
         return back()->withInput()->with('error', '登録中にエラーが発生しました。再度お試しください。');
       }
     }
+
+    public function editMovie($id = 1) {
+      $movie = Movie::findOrFail($id);
+      return view('editMovie', ['movie' => $movie]);
+    }
+
+    public function updateMovie(Request $request, $id) {
+      $validated = $request->validate([
+        'title' => 'required|unique:movies,title,' . $id,
+        'image_url' => 'required|url',
+        'published_year' => 'required|integer',
+        'is_showing' => 'required|boolean',
+        'description' => 'required',
+      ]);
+      $movie = Movie::findOrFail($id);
+      $movie->update($validated);
+      return redirect('/admin/movies')->with('success', '映画情報が更新されました');
+    }
 }
