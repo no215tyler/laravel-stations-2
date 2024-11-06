@@ -65,7 +65,7 @@ class PracticeController extends Controller
       }
     }
 
-    public function editMovie($id = 1) {
+    public function editMovie($id) {
       $movie = Movie::findOrFail($id);
       return view('editMovie', ['movie' => $movie]);
     }
@@ -81,5 +81,17 @@ class PracticeController extends Controller
       $movie = Movie::findOrFail($id);
       $movie->update($validated);
       return redirect('/admin/movies')->with('success', '映画情報が更新されました');
+    }
+
+    public function destroyMovie($id) {
+      try {
+        // 指定されたIDの映画レコードを削除
+        $movie = Movie::findOrFail($id);
+        $movie->delete();
+
+        return redirect()->route('admin.movies')->with('success', '映画が正常に削除されました。');
+      } catch (\Exception $e) {
+        return redirect()->route('admin.movies')->with('error', '削除中にエラーが発生しました。');
+      }
     }
 }

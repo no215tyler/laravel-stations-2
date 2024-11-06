@@ -30,3 +30,4 @@ Route::get('/admin/movies/create', [PracticeController::class, 'createMovie'])->
 Route::post('/admin/movies/store', [PracticeController::class, 'storeMovie'])->name('admin.movies.store');
 Route::get('/admin/movies/{id}/edit', [PracticeController::class, 'editMovie'])->name('admin.movies.edit');
 Route::patch('/admin/movies/{id}/update', [PracticeController::class, 'updateMovie'])->name('admin.movies.update');
+Route::delete('/admin/movies/{id}/destroy',[PracticeController::class, 'destroyMovie'])->name('admin.movies.destroy');

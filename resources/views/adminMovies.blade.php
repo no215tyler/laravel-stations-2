@@ -29,10 +29,25 @@
         <td>{{$movie->created_at}}</td>
         <td>{{$movie->updated_at}}</td>
         <td><a href="{{route('admin.movies.edit', ['id' => $movie->id])}}">編集</a></td>
+        <td>
+          <form id="delete-form-{{$movie->id}}" action="{{route('admin.movies.destroy', ['id' => $movie->id])}}" method="POST" style="display: inline;">
+            @csrf
+            @method('DELETE')
+            <button type="button" onclick="confirmDelete({{$movie->id}})">削除</button>
+          </form>
+        </td>
       </tr>
       @endforeach
     </tbody>
   </table>
   <a href="/movies">一覧ページへ戻る</a>
+  <script>
+    const confirmDelete = (id) => {
+      if (confirm("この映画を削除しますか？")) {
+        const elem = document.getElementById(`delete-form-${id}`);
+        elem.submit();
+      }
+    }
+  </script>
 </body>
 </html>
