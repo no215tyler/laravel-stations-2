@@ -32,7 +32,7 @@ class PracticeController extends Controller
     }
 
     public function admin() {
-      $movies = Movie::all();
+      $movies = Movie::orderBy('updated_at', 'desc')->get();
       return view('adminMovies', ['movies' => $movies]);
     }
 
@@ -46,8 +46,15 @@ class PracticeController extends Controller
         'title' => 'required|unique:movies,title',
         'image_url' => 'required|url',
         'published_year' => 'required|integer',
-        'is_showing' => 'required|nullable',
+        'is_showing' => 'boolean',
         'description' => 'required',
+      ], [
+        'title.required' => 'タイトルは必須です',
+        'image_url.required' => 'イメージURLは必須です',
+        'image_url.url' => 'イメージURLはURL形式で入力してください',
+        'published_year.required' => '公開年は入力必須です',
+        'published_year.integer' => '公開年は数値で入力してください',
+        'description.required' => '内容は入力必須です',
       ]);
 
       try {

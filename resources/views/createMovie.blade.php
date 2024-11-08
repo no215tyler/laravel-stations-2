@@ -11,6 +11,13 @@
   @if (session('error'))
     <p style="color:red">{{session('error')}}</p>
   @endif
+  <div class="errors">
+    <ul>
+      @foreach($errors->all() as $error)
+        <li class="error__message">{{$error}}</li>
+      @endforeach
+    </ul>
+  </div>
 
   <form action="{{route('admin.movies.store')}}" method="POST">
     @csrf
